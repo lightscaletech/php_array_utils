@@ -1,5 +1,5 @@
 {
-  "name": "lightscale/array_utils",
+  "name": "lightscale/array-utils",
   "description": "A library of pure functions for manipulating arrays",
   "type": "library",
   "license": "GPL-3.0-only",
