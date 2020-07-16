@@ -99,7 +99,7 @@ class ArrayUtils {
         return self::anyo($a, array_keys($a), $f);
     }
 
-    public static function groupBy($a, $k) {
+    public static function groupBy(array $a, string $k) {
         $r = [];
 
         foreach($a as $itm) {
