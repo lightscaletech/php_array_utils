@@ -99,5 +99,17 @@ class ArrayUtils {
         return self::anyo($a, array_keys($a), $f);
     }
 
+    public static function groupBy($a, $k) {
+        $r = [];
+
+        foreach($a as $itm) {
+            $by = self::get($itm, $k);
+            $col = self::get($r, $by, []);
+            $col[] = $itm;
+            $r[$by] = $col;
+        }
+
+        return $r;
+    }
 
 }
