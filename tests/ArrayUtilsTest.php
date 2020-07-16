@@ -121,4 +121,29 @@ final class ArrayUtilsTest extends TestCase {
         $this->assertEquals([[0, 1], [1, 2], [2, 3]], A::topairs([1, 2, 3]));
     }
 
+    public function testGroupBy() {
+        $arr = [
+            ['id' => 1],['id' => 2], ['id' => 3], ['id' => 2], ['id' => 3]
+        ];
+        $this->assertIsArray(A::groupBy([], ''));
+        $this->assertIsArray(A::groupBy($arr, 'id'));
+        $this->assertEquals([
+            1 => [['id' => 1]],
+            2 => [['id' => 2], ['id' => 2]],
+            3 => [['id' => 3], ['id' => 3]]
+        ], A::groupBy($arr, 'id'));
+    }
+
+    public function testKey() {
+        $arr = [
+            ['id' => 3], ['id' => 2], ['id' => 1]
+        ];
+
+        $this->assertIsArray(A::key($arr, 'id'));
+        $this->assertEquals([
+            3 => ['id' => 3],
+            2 => ['id' => 2],
+            1 => ['id' => 1]
+        ], A::key($arr, 'id'));
+    }
 }
