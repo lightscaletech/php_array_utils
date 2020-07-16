@@ -35,7 +35,8 @@ class ArrayUtils {
             }, []);
 
             $san = $san === false ? function($v){ return $v; } : $san;
-            return $san(self::get($data, $k, $d));
+            $res = self::get($data, $k, $d);
+            return is_callable($san) ? $san($res) : $res;
         };
         return $get;
     }
@@ -98,5 +99,17 @@ class ArrayUtils {
         return self::anyo($a, array_keys($a), $f);
     }
 
+    public static function groupBy($a, $k) {
+        $r = [];
+
+        foreach($a as $itm) {
+            $by = self::get($itm, $k);
+            $col = self::get($r, $by, []);
+            $col[] = $itm;
+            $r[$by] = $col;
+        }
+
+        return $r;
+    }
 
 }
