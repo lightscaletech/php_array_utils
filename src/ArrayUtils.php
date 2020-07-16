@@ -35,7 +35,8 @@ class ArrayUtils {
             }, []);
 
             $san = $san === false ? function($v){ return $v; } : $san;
-            return $san(self::get($data, $k, $d));
+            $res = self::get($data, $k, $d);
+            return is_callable($san) ? $san($res) : $res;
         };
         return $get;
     }
