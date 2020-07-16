@@ -123,27 +123,46 @@ final class ArrayUtilsTest extends TestCase {
 
     public function testGroupBy() {
         $arr = [
-            ['id' => 1],['id' => 2], ['id' => 3], ['id' => 2], ['id' => 3]
+            ['id' => '1'],['id' => '2'], ['id' => '3'], ['id' => '2'], ['id' => '3']
         ];
         $this->assertIsArray(A::groupBy([], ''));
         $this->assertIsArray(A::groupBy($arr, 'id'));
-        $this->assertEquals([
-            1 => [['id' => 1]],
-            2 => [['id' => 2], ['id' => 2]],
-            3 => [['id' => 3], ['id' => 3]]
-        ], A::groupBy($arr, 'id'));
+
+        $result = [
+            '1' => [['id' => '1']],
+            '2' => [['id' => '2'], ['id' => '2']],
+            '3' => [['id' => '3'], ['id' => '3']]
+        ];
+        $this->assertEquals($result, A::groupBy($arr, 'id'));
+
+        $result = [
+            1 => [['id' => '1']],
+            2 => [['id' => '2'], ['id' => '2']],
+            3 => [['id' => '3'], ['id' => '3']]
+        ];
+        $this->assertEquals($result, A::groupBy($arr, 'id', 'intval'));
     }
 
     public function testKey() {
         $arr = [
-            ['id' => 3], ['id' => 2], ['id' => 1]
+            ['id' => '3'], ['id' => '2'], ['id' => '1']
         ];
 
         $this->assertIsArray(A::key($arr, 'id'));
-        $this->assertEquals([
-            3 => ['id' => 3],
-            2 => ['id' => 2],
-            1 => ['id' => 1]
-        ], A::key($arr, 'id'));
+
+        $result = [
+            '3' => ['id' => '3'],
+            '2' => ['id' => '2'],
+            '1' => ['id' => '1']
+        ];
+        $this->assertEquals($result, A::key($arr, 'id'));
+
+        $result = [
+            3 => ['id' => '3'],
+            2 => ['id' => '2'],
+            1 => ['id' => '1']
+        ];
+        $this->assertEquals($result, A::key($arr, 'id', 'intval'));
     }
+
 }
