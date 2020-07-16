@@ -99,7 +99,7 @@ class ArrayUtils {
         return self::anyo($a, array_keys($a), $f);
     }
 
-    public static function groupBy($a, $k) {
+    public static function groupBy(array $a, string $k) {
         $r = [];
 
         foreach($a as $itm) {
@@ -110,6 +110,13 @@ class ArrayUtils {
         }
 
         return $r;
+    }
+
+    public static function key(array $a, $k) {
+        return array_reduce($a, function($r, $itm)  use($k) {
+            $r[$itm[$k]] = $itm;
+            return $r;
+        }, []);
     }
 
 }
