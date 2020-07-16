@@ -99,11 +99,12 @@ class ArrayUtils {
         return self::anyo($a, array_keys($a), $f);
     }
 
-    public static function groupBy(array $a, string $k) {
+    public static function groupBy(array $a, string $k, callable $keyTrans = null) {
         $r = [];
 
         foreach($a as $itm) {
             $by = self::get($itm, $k);
+            $by = $keyTrans ? $keyTrans($by) : $by;
             $col = self::get($r, $by, []);
             $col[] = $itm;
             $r[$by] = $col;
@@ -112,9 +113,11 @@ class ArrayUtils {
         return $r;
     }
 
-    public static function key(array $a, $k) {
-        return array_reduce($a, function($r, $itm)  use($k) {
-            $r[$itm[$k]] = $itm;
+    public static function key(array $a, string $k, callable $keyTrans = null) {
+        return array_reduce($a, function($r, $itm)  use($k, $keyTrans) {
+            $nk = $itm[$k];
+            $nk = $keyTrans ? $keyTrans($nk) : $nk;
+            $r[$nk] = $itm;
             return $r;
         }, []);
     }
