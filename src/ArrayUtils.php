@@ -122,4 +122,10 @@ class ArrayUtils {
         }, []);
     }
 
+    public static function find(array $a, callable $fn) {
+        foreach($a as $v) {
+            if($fn($v)) return $v;
+        }
+    }
+
 }
