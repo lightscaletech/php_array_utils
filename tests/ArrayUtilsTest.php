@@ -165,4 +165,29 @@ final class ArrayUtilsTest extends TestCase {
         $this->assertEquals($result, A::key($arr, 'id', 'intval'));
     }
 
+    public function testFind() {
+        $arr = [
+            ['id' => '3'], ['id' => '2'], ['id' => '1', 'nested' => ['id' => 'test']]
+        ];
+
+        $result = ['id' => '2'];
+        $test = A::find($arr, function($v) {
+            return $v['id'] === '2';
+        });
+        $this->assertEquals($result, $test);
+    }
+
+    public function testFindBy() {
+        $arr = [
+            ['id' => '3'], ['id' => '2'],
+            ['id' => '1', 'nested' => ['id' => 'test']]
+        ];
+
+        $result = ['id' => '2'];
+        $this->assertEquals($result, A::findBy($arr, 'id', '2'));
+
+        $result = ['id' => '1', 'nested' => ['id' => 'test']];
+        $this->assertEquals($result, A::findBy($arr, ['nested', 'id'], 'test'));
+    }
+
 }
