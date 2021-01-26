@@ -122,4 +122,16 @@ class ArrayUtils {
         }, []);
     }
 
+    public static function find(array $a, callable $fn) {
+        foreach($a as $v) {
+            if($fn($v)) return $v;
+        }
+    }
+
+    public static function findBy(array $a, $path, string $val) {
+        return self::find($a, function($v) {
+            return self::get($a, $path) === $val;
+        });
+    }
+
 }
